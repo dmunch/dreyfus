@@ -289,7 +289,8 @@ args_to_proplist(#index_query_args{} = Args) ->
      {highlight_pre_tag, Args#index_query_args.highlight_pre_tag},
      {highlight_post_tag, Args#index_query_args.highlight_post_tag},
      {highlight_number, Args#index_query_args.highlight_number},
-     {highlight_size, Args#index_query_args.highlight_size}
+     {highlight_size, Args#index_query_args.highlight_size},
+     {'qdsl', Args#index_query_args.qdsl}
     ].
 
 args_to_proplist2(#index_query_args{} = Args) ->
@@ -306,14 +307,15 @@ args_to_proplist2(#index_query_args{} = Args) ->
      {highlight_pre_tag, Args#index_query_args.highlight_pre_tag},
      {highlight_post_tag, Args#index_query_args.highlight_post_tag},
      {highlight_number, Args#index_query_args.highlight_number},
-     {highlight_size, Args#index_query_args.highlight_size}
+     {highlight_size, Args#index_query_args.highlight_size},
+     {'qdsl', Args#index_query_args.qdsl}
     ].
 
 search_int(Pid, QueryArgs0) ->
     QueryArgs = dreyfus_util:upgrade(QueryArgs0),
     case QueryArgs of
         #index_query_args{counts=nil,ranges=nil,drilldown=[],include_fields=nil,
-                         highlight_fields=nil} ->
+                         highlight_fields=nil,qdsl=nil} ->
             clouseau_rpc:search(
                 Pid,
                 QueryArgs#index_query_args.q,

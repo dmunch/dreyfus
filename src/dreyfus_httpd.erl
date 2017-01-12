@@ -188,6 +188,8 @@ parse_index_params(IndexParams) ->
 
 validate_index_query(q, Value, Args) ->
     Args#index_query_args{q=Value};
+validate_index_query(qdsl, Value, Args) ->
+    Args#index_query_args{qdsl=Value};
 validate_index_query(stale, Value, Args) ->
     Args#index_query_args{stale=Value};
 validate_index_query(limit, Value, Args) ->
@@ -283,6 +285,8 @@ parse_json_index_param(<<"q">>, Value) ->
     [{q, Value}];
 parse_json_index_param(<<"query">>, Value) ->
     [{q, Value}];
+parse_json_index_param(<<"qdsl">>, Value) ->
+    [{qdsl, Value}];
 parse_json_index_param(<<"bookmark">>, Value) ->
     [{bookmark, Value}];
 parse_json_index_param(<<"sort">>, Value) ->

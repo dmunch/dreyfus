@@ -124,10 +124,34 @@ upgrade({index_query_args, Query, Limit, Stale, IncludeDocs, Bookmark,
         highlight_post_tag = HighlightPostTag,
         highlight_number = HighlightNumber,
         highlight_size = HighlightSize
+    };
+upgrade({index_query_args, Query, Limit, Stale, IncludeDocs, Bookmark,
+         Sort, Grouping, Stable, Counts, Ranges, Drilldown,
+         IncludeFields, HighlightFields, HighlightPreTag, HighlightPostTag,
+         HighlightNumber, HighlightSize, Qdsl}) ->
+    #index_query_args{
+        q = Query,
+        limit = Limit,
+        stale = Stale,
+        include_docs = IncludeDocs,
+        bookmark = Bookmark,
+        sort = Sort,
+        grouping =  Grouping,
+        stable = Stable,
+        counts = Counts,
+        ranges = Ranges,
+        drilldown = Drilldown,
+        include_fields = IncludeFields,
+        highlight_fields = HighlightFields,
+        highlight_pre_tag = HighlightPreTag,
+        highlight_post_tag = HighlightPostTag,
+        highlight_number = HighlightNumber,
+        highlight_size = HighlightSize,
+        qdsl = Qdsl 
     }.
 
 export(#index_query_args{counts = nil, ranges = nil, drilldown = [],
-    include_fields = nil, highlight_fields = nil} = Args) ->
+    include_fields = nil, highlight_fields = nil, qdsl = nil} = Args) ->
     % Ensure existing searches work during the upgrade by creating an
     % #index_query_args record in the old format
     {index_query_args,
@@ -140,7 +164,7 @@ export(#index_query_args{counts = nil, ranges = nil, drilldown = [],
         Args#index_query_args.grouping,
         Args#index_query_args.stable
     };
-export(#index_query_args{include_fields = nil, highlight_fields = nil} = Args) ->
+export(#index_query_args{include_fields = nil, highlight_fields = nil, qdsl = nil} = Args) ->
     {index_query_args,
         Args#index_query_args.q,
         Args#index_query_args.limit,
